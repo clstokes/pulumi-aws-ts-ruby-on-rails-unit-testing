@@ -3,6 +3,15 @@ import * as aws from "@pulumi/aws";
 
 import * as config from "./config";
 
+const amiId = aws.getAmi({
+    owners: ["099720109477"], // Ubuntu
+    mostRecent: true,
+    filters: [
+        { name: "name", values: ["ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"] },
+    ],
+}).then(x => x.id);
+
+
 export const webSg = new aws.ec2.SecurityGroup("webServerSecurityGroup", {
     description: "Enable HTTP and SSH access",
     egress: [
@@ -15,7 +24,7 @@ export const webSg = new aws.ec2.SecurityGroup("webServerSecurityGroup", {
 });
 
 export const webServer = new aws.ec2.Instance("webServer", {
-    ami: "ami-0475f60cdd8fd2120",
+    ami: amiId,
     instanceType: config.instanceType,
     securityGroups: [webSg.name],
     keyName: config.keyName,
