@@ -1,16 +1,17 @@
-import { describe, it } from "mocha";
-import { expect } from 'chai';
 import * as pulumi from "@pulumi/pulumi";
 import * as aws from "@pulumi/aws";
+import { describe, it } from "mocha";
+import { assert } from 'chai';
 
-const infra = require("./index");
+// const infra = require("./index");
+import * as infra from "./index";
 
 describe("Infrastructure", () => {
-    const server: aws.ec2.Instance = infra.server;
+    const webServer: aws.ec2.Instance = infra.webServer;
     describe("#server", () => {
         it("must have a name tag", () => {
-            pulumi.all([server.urn, server.tags]).apply(([urn, tags]) => {
-                expect(tags["Name"]).to.be.not.null(`Missing a name tag on server [${urn}]`);
+            pulumi.all([webServer.urn, webServer.tags]).apply(([urn, tags]) => {
+                assert.isNotNull((tags || {})["Name"], `Missing a Name tag on server [${urn}].`);
             });
         });
 
@@ -18,7 +19,7 @@ describe("Infrastructure", () => {
         // TODO(check 2): Instances must not use an inline userData script.
     });
 
-    const group = infra.group;
+    const webSg = infra.webSg;
     describe("#group", function () {
         // TODO(check 3): Instances must not have SSH open to the Internet.
     });

@@ -17,6 +17,7 @@
     },
     "files": [
         "index.ts",
-        "config.ts"
+        "config.ts",
+        "tests.spec.ts"
     ]
 }

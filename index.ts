@@ -10,7 +10,7 @@ const amiId = aws.getAmi({
     ],
 }).then(x => x.id);
 
-const webSg = new aws.ec2.SecurityGroup("webServerSecurityGroup", {
+export const webSg = new aws.ec2.SecurityGroup("webServerSecurityGroup", {
     description: "Enable HTTP and SSH access",
     egress: [
         { protocol: "-1", fromPort: 0, toPort: 0, cidrBlocks: ["0.0.0.0/0"] },
@@ -21,7 +21,7 @@ const webSg = new aws.ec2.SecurityGroup("webServerSecurityGroup", {
     ],
 });
 
-const webServer = new aws.ec2.Instance("webServer", {
+export const webServer = new aws.ec2.Instance("webServer", {
     ami: amiId,
     instanceType: config.instanceType,
     securityGroups: [webSg.name],
