@@ -1,22 +1,17 @@
 import { describe, it } from "mocha";
 import { expect } from 'chai';
 import * as pulumi from "@pulumi/pulumi";
+import * as aws from "@pulumi/aws";
 
 const infra = require("./index");
 
 describe("Infrastructure", () => {
-    const server = infra.server;
+    const server: aws.ec2.Instance = infra.server;
     describe("#server", () => {
-        it("must have a name tag", function (/*done*/) {
-            expect('Hello world!').to.equal('Hello world!');
-
-            // pulumi.all([server.urn, server.tags]).apply(([urn, tags]) => {
-            //     if (!tags || !tags["Name"]) {
-            //         done(new Error(`Missing a name tag on server ${urn}`));
-            //     } else {
-            //         done();
-            //     }
-            // });
+        it("must have a name tag", () => {
+            pulumi.all([server.urn, server.tags]).apply(([urn, tags]) => {
+                expect(tags["Name"]).to.be.not.null(`Missing a name tag on server [${urn}]`);
+            });
         });
 
         // TODO(check 1): Instances have a Name tag.

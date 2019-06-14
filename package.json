@@ -1,16 +1,9 @@
 {
-    "name": "aws-ec2-rails",
+    "name": "aws-ts-ruby-on-rails",
     "version": "0.1.0",
     "dependencies": {
         "@pulumi/aws": "latest",
-        "@pulumi/pulumi": "latest",
-        "minimist": "^1.2.0",
-        "mkdirp": "^0.5.1",
-        "ms": "^2.1.2",
-        "needle": "^2.4.0",
-        "pawsami": "^0.1.1",
-        "pcloudinit": "^0.1.0",
-        "rimraf": "^2.6.3"
+        "@pulumi/pulumi": "latest"
     },
     "devDependencies": {
         "@types/chai": "^4.1.7",

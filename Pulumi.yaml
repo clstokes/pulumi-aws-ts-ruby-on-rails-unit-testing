@@ -1,4 +1,4 @@
-name: rails
+name: pulumi-aws-ts-ruby-on-rails-unit-testing
 runtime: nodejs
 description: A Ruby on Rails stack using a single EC2 instance with a local MySQL database for storage
 template:
