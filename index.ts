@@ -1,14 +1,7 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as aws from "@pulumi/aws";
-import * as config from "./config";
 
-const amiId = aws.getAmi({
-    owners: ["099720109477"], // Ubuntu
-    mostRecent: true,
-    filters: [
-        { name: "name", values: ["ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"] },
-    ],
-}).then(x => x.id);
+import * as config from "./config";
 
 export const webSg = new aws.ec2.SecurityGroup("webServerSecurityGroup", {
     description: "Enable HTTP and SSH access",
@@ -22,15 +15,12 @@ export const webSg = new aws.ec2.SecurityGroup("webServerSecurityGroup", {
 });
 
 export const webServer = new aws.ec2.Instance("webServer", {
-    ami: amiId,
+    ami: "ami-0475f60cdd8fd2120",
     instanceType: config.instanceType,
     securityGroups: [webSg.name],
     keyName: config.keyName,
-    userData: "asdfasdf"
+    userData: "key1=val1",
 });
 
 // Export the VM IP in case we want to SSH.
-export let vmIP = webServer.publicIp;
-
-// Export the URL for our newly created Rails application.
-export let websiteURL = pulumi.interpolate`http://${webServer.publicDns}/notes`;
+export const vmIP = webServer.publicIp;
