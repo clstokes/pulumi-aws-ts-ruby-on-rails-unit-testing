@@ -3,7 +3,8 @@
     "version": "0.1.0",
     "dependencies": {
         "@pulumi/aws": "latest",
-        "@pulumi/pulumi": "latest"
+        "@pulumi/pulumi": "latest",
+        "pcloudinit": "^0.1.0"
     },
     "devDependencies": {
         "@types/chai": "^4.1.7",
@@ -11,8 +12,5 @@
         "chai": "^4.2.0",
         "mocha": "^6.1.4",
         "ts-mocha": "^6.0.0"
-    },
-    "scripts": {
-        "test": "PULUMI_TEST_MODE=true PULUMI_NODEJS_PROJECT=aws-ts-ruby-on-rails PULUMI_NODEJS_STACK=fake-stack PULUMI_CONFIG='{ \"aws:region\": \"us-west-2\", \"aws-ts-ruby-on-rails:dbUser\": \"admin2\", \"aws-ts-ruby-on-rails:dbPassword\": \"pass2\", \"aws-ts-ruby-on-rails:dbRootPassword\": \"pass2\" }' mocha -r ts-node/register *.spec.ts"
     }
 }
