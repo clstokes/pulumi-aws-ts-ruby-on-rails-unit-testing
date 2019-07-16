@@ -3,7 +3,6 @@ import * as aws from "@pulumi/aws";
 import * as config from "./config";
 import { createUserData, renderConfigFile } from "pcloudinit";
 
-import "./tests";
 import { runTests } from "./tests";
 
 export const webSg = new aws.ec2.SecurityGroup("webServerSecurityGroup", {
@@ -13,7 +12,7 @@ export const webSg = new aws.ec2.SecurityGroup("webServerSecurityGroup", {
     ],
     ingress: [
         // Comment out the line below to to fix test failure.
-        { protocol: "-1", fromPort: 0, toPort: 0, cidrBlocks: ["0.0.0.0/0"] },
+        // { protocol: "-1", fromPort: 0, toPort: 0, cidrBlocks: ["0.0.0.0/0"] },
     ],
 });
 
@@ -38,7 +37,7 @@ export const webServer = new aws.ec2.Instance("webServer", {
     securityGroups: [webSg.name],
     tags: {
         // Uncomment the line below to to fix test failure.
-        // Name: "webserver",
+        Name: "webserver",
     },
     userData: createUserData(
         ["install_ruby_2_3_1", "install_mysql", "configure_mysql", "install_application"],
